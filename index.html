@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Phul - My Lovely Sister</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  height:100vh;
+  background: linear-gradient(135deg,#ffdde1,#ee9ca7);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* Card */
+.card{
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(15px);
+  border-radius:25px;
+  padding:30px 20px;
+  width:90%;
+  max-width:420px;
+  text-align:center;
+  box-shadow:0 0 25px rgba(0,0,0,0.3);
+  animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* Heading */
+h1{
+  font-family:'Pacifico', cursive;
+  font-size:38px;
+  color:#fff;
+  text-shadow:0 0 10px hotpink;
+}
+
+/* Text */
+#text{
+  margin-top:15px;
+  font-size:17px;
+  color:#222;
+  min-height:140px;
+  line-height:1.6;
+}
+
+/* Buttons */
+button{
+  margin-top:15px;
+  padding:12px 28px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(to right,#ff4b7d,#ff0066);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+/* Footer */
+.footer{
+  margin-top:15px;
+  font-size:13px;
+  color:white;
+  opacity:0.8;
+}
+
+/* Floating Hearts */
+.heart{
+  position:absolute;
+  font-size:18px;
+  animation: float 8s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh); opacity:1;}
+  to{transform:translateY(-120vh); opacity:0;}
+}
+
+/* Popup */
+#surpriseBox{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.surpriseContent{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+  width:80%;
+  max-width:320px;
+  animation: pop 0.5s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0);}
+  to{transform:scale(1);}
+}
+
+.surpriseContent h2{
+  color:#ff0066;
+}
+
+.surpriseContent p{
+  margin-top:10px;
+  font-size:16px;
+  color:#333;
+}/* Mobile Full Screen Fix */
+@media (max-width: 600px){
+
+  body{
+    align-items: stretch;
+  }
+
+  .card{
+    width:100%;
+    height:100vh;
+    max-width:100%;
+    border-radius:0;
+    padding:40px 20px;
+    justify-content:center;
+    display:flex;
+    flex-direction:column;
+  }
+
+  h1{
+    font-size:42px;
+  }
+
+  #text{
+    font-size:19px;
+  }
+
+  button{
+    font-size:18px;
+    padding:14px 30px;
+  }
+
+  .footer{
+    font-size:14px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>💖 Dear Vishakha💖</h1>
+  <div id="text"></div>
+
+  <button onclick="surprise()">💌 Surprise</button>
+
+  <div class="footer">Made with ❤️ for my lovely sister</div>
+</div>
+
+<!-- Surprise Popup -->
+<div id="surpriseBox">
+  <div class="surpriseContent">
+    <h2>🌸 Special Message 🌸</h2>
+    <p id="surpriseText"></p>
+    <button onclick="closeSurprise()">Close ❌</button>
+  </div>
+</div>
+
+<script>
+// Typing Message
+const message = 
+"Welcome to this little surprise made just for you 🌸\n\n" +
+"You are the most beautiful flower in our family 💖\n" +
+"Your smile brings happiness to everyone 😊\n" +
+"May your life always be full of love and joy ✨\n\n" +
+"Always stay blessed and keep shining 🌟";
+
+let i=0;
+
+function typeText(){
+  if(i<message.length){
+    document.getElementById("text").innerHTML += message.charAt(i)=="\n"?"<br>":message.charAt(i);
+    i++;
+    setTimeout(typeText,60);
+  }
+}
+typeText();
+
+// Floating Hearts
+function createHeart(){
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*15+12)+"px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),8000);
+}
+setInterval(createHeart,900);
+
+// Surprise Messages
+const surpriseMessages = [
+  "You are truly special 🌸",
+  "Never forget how much you are loved 💖",
+  "Your smile makes the world brighter ✨",
+  "May all your dreams come true 🌟",
+  "Stay happy always 💝"
+];
+
+function surprise(){
+  const msg = surpriseMessages[Math.floor(Math.random()*surpriseMessages.length)];
+  document.getElementById("surpriseText").innerHTML = msg;
+  document.getElementById("surpriseBox").style.display="flex";
+}
+
+function closeSurprise(){
+  document.getElementById("surpriseBox").style.display="none";
+}
+</script>
+
+</body>
+</html>
